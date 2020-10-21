@@ -41,12 +41,19 @@ const cookieStore = (function () {
         response.header = response.header || response.headers
         // 获取响应 cookies
         let responseCookies = response.header ? response.header['Set-Cookie'] || response.header['set-cookie'] : ''
+
+        console.log('responseCookies: ', responseCookies);
+
         if (responseCookies) {
-          // 处理QQ小程序下cookie分隔符问题：https://github.com/charleslo1/weapp-cookie/issues/39
-          responseCookies = responseCookies.replace(/\;([^\s\;]*?(?=\=))/ig, ',$1')
+          if (responseCookies.replace === 'function') {
+            // 处理QQ小程序下cookie分隔符问题：https://github.com/charleslo1/weapp-cookie/issues/39
+            responseCookies = responseCookies.replace(/\;([^\s\;]*?(?=\=))/ig, ',$1')
+          }
+
           // 设置 cookies，以便下次请求带上
           cookieStore.setResponseCookies(responseCookies, domain)
         }
+
         // 调用成功回调函数
         successCallback && successCallback(response)
       }
