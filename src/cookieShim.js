@@ -42,7 +42,7 @@ const cookieStore = (function () {
         // 获取响应 cookies
         let responseCookies = response.header ? response.header['Set-Cookie'] || response.header['set-cookie'] : ''
 
-        console.log('responseCookies: ', responseCookies);
+        // console.log('responseCookies: ', responseCookies);
 
         if (responseCookies) {
           if (responseCookies.replace === 'function') {
